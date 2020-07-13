@@ -1,0 +1,27 @@
+
+ul.slide {
+    overflow-y: auto;
+    overflow-x: hidden;
+    white-space: nowrap;
+    display: block;
+    list-style: none;
+}
+
+li.slide {
+    display: inline-block;
+    text-align: center;
+    padding-right: 20px;
+}
+
+li:last-child {
+    padding-right: 0px;
+}
+
+/* li:nth-child(odd) {
+    background-color: yellow;
+}
+
+li:nth-child(even) {
+    background-color: blue;
+} */
+
