@@ -20,9 +20,6 @@ class ProductsSlide extends Component {
 
     componentDidMount() {
 
-        // console.log("MEGUMI");
-        // console.log(this.props);
-
         axios({
             url: services.listType + '/' + ( this.props.listTypeID % 10 ),
             method: 'get',
@@ -70,9 +67,6 @@ class ProductsSlide extends Component {
     }
 
     render() {
-        // console.log("AYA");
-        // console.log(this.state.listType);
-        // console.log(this.state.apiProducts);
         let classname = '';
         if (this.props.bgc == true) {
             classname += 'bgc-gray';

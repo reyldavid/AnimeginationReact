@@ -8,26 +8,29 @@ import 'bootstrap';
 // import 'bootstrap/dist/js/bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navigation from './common/navigation';
+import { SecurityContext, securityCtx } from './routers/seurity-context';
 
 function App() {
   return (
-    <div className="App">
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
-      <Navigation />
-    </div>
+    <SecurityContext.Provider value={ securityCtx }>
+      <div className="App">
+        {/* <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <p>
+            Edit <code>src/App.js</code> and save to reload.
+          </p>
+          <a
+            className="App-link"
+            href="https://reactjs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Learn React
+          </a>
+        </header> */}
+        <Navigation />
+      </div>
+    </SecurityContext.Provider>
   );
 }
 

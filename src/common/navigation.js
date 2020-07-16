@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../styles/styles.css';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 // Router, IndexRoute, browserHistory, userRouterHistory
-import { NavBar, Nav, NavDropdown, NavLink, Dropdown, DropdownButton, Navbar } from 'react-bootstrap';
+import { NavBar, Nav, NavDropdown, NavLink, Dropdown, DropdownButton, Navbar, MenuItem } from 'react-bootstrap';
 import App from '../App';
 import Features from './features';
 import ContactUs from './contact';
@@ -24,7 +24,9 @@ import Recommendation from '../admin/recommendation';
 import UserFeedback from '../admin/user-feedback';
 import UserInfo from '../admin/user-info';
 import SignIn from './sign-in';
+import CartPill from './cart-pill';
 import { PrivateRoute } from '../routers/private-route';
+import { SecurityContext } from '../routers/seurity-context';
 
 class Navigation extends Component {
     constructor(props) {
@@ -32,13 +34,30 @@ class Navigation extends Component {
 
         this.state = 
             {
-                order: {
-                    Quantity: 0
-                }
+                orderQuantity: 0,
+                firstname: "",
+                isAdmin: false
             }
+        this.updateContext = this.updateContext.bind(this);
+    }
+
+    updateContext() {
+        let isAdmin = this.context && this.context.roles && this.context.roles.includes("Admin");
+
+        this.setState({
+            orderQuantity: this.context.order.itemQuantity,
+            firstname: this.context.firstname,
+            isAdmin: isAdmin
+        })
+        console.log("aya updateContext");
+        console.log(this.context);
     }
 
     render() {
+
+        console.log("aya navigation context");
+        console.log(this.context);
+
         return (
 <div className="body-bg-white">
     <BrowserRouter>
@@ -74,15 +93,15 @@ class Navigation extends Component {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item dropdown">
-              <NavDropdown title="Features" id="features-dropdown">
-                  <NavDropdown.Item href="/slice/1">Featured Titles</NavDropdown.Item>
-                  <NavDropdown.Item href="/slice/3">Top Sellers</NavDropdown.Item>
-                  <NavDropdown.Item href="/slice/2">New Items</NavDropdown.Item>
-                  <NavDropdown.Item href="/slice/5">Close Out</NavDropdown.Item>
-                  <NavDropdown.Item href="/slice/5">Bargain Bin</NavDropdown.Item>
-                  <NavDropdown.Item href="/slice/6">Live Action</NavDropdown.Item>
+              <NavDropdown title="Features" id="features-dropdown" className="bold">
+                  <NavDropdown.Item as={Link} to="/slice/1">Featured Titles</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/slice/3">Top Sellers</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/slice/2">New Items</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/slice/5">Close Out</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/slice/5">Bargain Bin</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/slice/6">Live Action</NavDropdown.Item>
                   <NavDropdown.Divider></NavDropdown.Divider>
-                  <NavDropdown.Item href="/news">Recent News</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/news">Recent News</NavDropdown.Item>
               </NavDropdown>
             </li>
             <li className="nav-item">
@@ -101,53 +120,38 @@ class Navigation extends Component {
                 </Nav.Link>
             </li>
             {/* <li [class.hidden]="!isAdmin" className="nav-item dropdown"> */}
-            <li className="nav-item dropdown">
-                <NavDropdown title="Admin" id="admin-dropdown">
-                    <NavDropdown.Item href="/user-info">Users</NavDropdown.Item>
-                    <NavDropdown.Item href="/genre">Genres</NavDropdown.Item>
-                    <NavDropdown.Item href="/product-info">Products</NavDropdown.Item>
-                    <NavDropdown.Item href="/medium">Medium</NavDropdown.Item>
-                    <NavDropdown.Item href="/publisher">Publishers</NavDropdown.Item>
-                    <NavDropdown.Item href="/list-type">List Types</NavDropdown.Item>
-                    <NavDropdown.Item href="/listing">Listings</NavDropdown.Item>
-                    <NavDropdown.Item href="/customer-note">User Notes</NavDropdown.Item>
-                    <NavDropdown.Item href="/user-feedback">Feedbacks</NavDropdown.Item>
-                    <NavDropdown.Item href="/recommends">Recommends</NavDropdown.Item>
-                </NavDropdown>
-            </li>
-          </ul>
+            {
+                this.context && this.context.roles && this.context.roles.includes("Admin") &&
+                <li className="nav-item dropdown">
+                    <NavDropdown title="Admin" id="admin-dropdown" className="bold">
+                        <NavDropdown.Item as={Link} to="/user-info">Users</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/genre">Genres</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/product-info">Products</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/medium">Medium</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/publisher">Publishers</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/list-type">List Types</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/listing">Listings</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/customer-note">User Notes</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/user-feedback">Feedbacks</NavDropdown.Item>
+                        <NavDropdown.Item as={Link} to="/recommends">Recommends</NavDropdown.Item>
+                    </NavDropdown>
+                </li>
+            }
+            </ul>
   
-          {/* <ul className="navbar-nav">
-            <li *ngIf="userFirstName" className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown2" 
-                    role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Hello, <span className="anime-color">{{userFirstName}}</span><span className="caret"></span>
-                </a>
-              <div className="dropdown-menu" aria-labelledby="navbarDropdown2">
-                <a className="dropdown-item hand" (click)="logout()">Sign Out</a>
-                <div className="dropdown-divider"></div>
-                <a className="dropdown-item" href="#" routerLink="/orders-list">Your Orders</a>
-                <a className="dropdown-item" href="#" routerLink="/account">Your Account</a>
-              </div>
-            </li>
-            <li *ngIf="!userFirstName" className="nav-item">
-              <a className="nav-link hand" [class.disabled]="loggingIn" (click)="login()">Sign in</a>
-            </li>
-          </ul> */}
-
-          <SignIn />
+          <SignIn firstname={this.state.firstname} resetContext={this.updateContext} />
         </div>
   
         <div className="nav navbar-nav pl-3">
             <Link to="/cart">
-                {/* <a className="image-link"> */}
-                    <img src="https://reydavid.blob.core.windows.net/assets/menu-cart.png"
-                            alt="Shopping Cart" height="46" />
-                    {/* <span className="badge badge-pill badge-anime">{{ order?.itemQuantity }}</span> */}
-                    <span className="badge badge-pill badge-anime">{this.state.order.Quantity}</span>
-                {/* </a> */}
+                <img src="https://reydavid.blob.core.windows.net/assets/menu-cart.png"
+                        alt="Shopping Cart" height="46" />
+                <span className="badge badge-pill badge-anime">
+                    {this.context && this.context.order && this.state.orderQuantity ? 
+                    this.context.order.itemQuantity : 0 }</span>
             </Link>
         </div>
+        {/* <CartPill /> */}
       </nav>  
     </div>
   
@@ -170,7 +174,8 @@ class Navigation extends Component {
             <PrivateRoute path = '/recommends' component = { Recommendation } />
             <PrivateRoute path = '/user-feedback' component = { UserFeedback } />
             <PrivateRoute path = '/user-info' component = { UserInfo } />
-            <Route path = '/login' component = { Login } />
+            <Route path = '/login' render={(props) => <Login {...props} 
+                updateOrderQuantity={this.updateContext} /> } />
             <Route component = { Home } />
           </Switch>
     </div>
@@ -183,5 +188,7 @@ class Navigation extends Component {
           );
     }
 }
+
+Navigation.contextType = SecurityContext;
 
 export default Navigation;

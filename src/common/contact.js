@@ -48,7 +48,14 @@ class ContactUs extends Component {
             You will need to be logged in to use the online form. If you are already logged in, 
             you may proceed to the 
             <Link to="/user-note" onClick={this.newNote}> contact form </Link>.  Otherwise, you may 
-            <Link to="/login" onClick={this.login}> log in here </Link>.
+            <Link to = {{
+                    pathname: "/login",
+                    state: {
+                        referer: window.location.pathname
+                    }
+                }} 
+                onClick={this.login}> log in here </Link>.
+
         </p>
         <p>
         We can also be reached through the following methods:
