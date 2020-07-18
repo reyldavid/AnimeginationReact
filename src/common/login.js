@@ -161,7 +161,7 @@ class Login extends Component {
             </Form.Group>
             <Form.Group>
                 <Form.Label>Your Animegination Password</Form.Label>
-                <Form.Control name="password" type="text"  required
+                <Form.Control name="password" type="password"  required
                     placeholder="password" onChange={this.inputChange} />
                     {/* <input type="text" ref = { pw => this.state.password = pw } /> */}
             </Form.Group>

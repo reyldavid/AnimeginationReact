@@ -90,7 +90,7 @@ class ProductsSlide extends Component {
         <div className="row">
             <div id="'prev' + listTypeID" className="slide-prev slide-col col-2 col-sm-1 d-flex align-items-center">
                 <a>
-                    <img src={'Previous2.jpg'} alt="Previous" 
+                    <img src={'https://reydavid.blob.core.windows.net/assets/Previous2.jpg'} alt="Previous" 
                         className="slide-buttons"></img>
                 </a>
             </div>
@@ -111,7 +111,7 @@ class ProductsSlide extends Component {
 
             <div id="'next' + listTypeID" className="slide-next slide-col col-2 col-sm-1 d-flex align-items-center">
                 <a>
-                    <img src={'Next2.jpg'} alt="Next" className="slide-buttons"></img>
+                    <img src={'https://reydavid.blob.core.windows.net/assets/Next2.jpg'} alt="Next" className="slide-buttons"></img>
                 </a>
             </div>
         </div>

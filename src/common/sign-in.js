@@ -81,7 +81,7 @@ class SignIn extends Component {
                                     referer: window.location.pathname
                                 }
                             }} 
-                                className="nav-link hand" onClick={this.login}>Sign in</Link>
+                                className="nav-link hand" onClick={this.login}>Please Sign in</Link>
                         </li>
                     )}
                   </ul>
