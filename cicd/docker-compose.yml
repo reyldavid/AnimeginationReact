@@ -1,0 +1,12 @@
+services:
+
+  webapp:
+    container_name: animegination
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+    ports:
+      - 3001:3000
