@@ -6,8 +6,8 @@ services:
       context: .
       dockerfile: Dockerfile
     image: animegination
-      volumes:
-      - '.:/app'
-      - '/app/node_modules'
+    volumes:
+      - .:/app
+      - /app/node_modules
     ports:
-      - 3001:3000
+      - "3001:3000"
