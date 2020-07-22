@@ -1,11 +1,12 @@
-services:
+version: "3.8"
 
+services:
   webapp:
-    container_name: animegination
     build:
       context: .
       dockerfile: Dockerfile
-    volumes:
+    image: animegination
+      volumes:
       - '.:/app'
       - '/app/node_modules'
     ports:
