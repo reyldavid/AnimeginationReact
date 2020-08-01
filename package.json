@@ -21,7 +21,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "deploy": "aws s3 cp --recursive ./build s3://animegination",
-    "test": "react-scripts test",
+    "test": "react-scripts test --watchAll=false",
+    "jtest": "jest --config ./tests/jest.config.json",
+    "jtest:watch": "npm run jtest -- --watch",
+    "jjtest": "jest",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -38,5 +41,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/preset-flow": "^7.10.4"
   }
 }
