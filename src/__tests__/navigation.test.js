@@ -23,6 +23,5 @@ it ("Aya Navigation", () => {
     console.log(container.textContent);
     
     expect(true).toBe(true);
-    expect(false).toBe(false);
 });
 
