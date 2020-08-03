@@ -27,6 +27,7 @@ import SignIn from './sign-in';
 import CartPill from './cart-pill';
 import { PrivateRoute } from '../routers/private-route';
 import { SecurityContext } from '../routers/seurity-context';
+import CategoryList from './category-list';
 
 class Navigation extends Component {
     constructor(props) {
@@ -160,6 +161,7 @@ class Navigation extends Component {
             <Route path = "/" component = { Home } exact />
             <Route path = "/features" component = { Features } />
             <Route path = "/category" component = { Categories } />
+            <Route path = "/category-list/:genreID" component = { CategoryList } />
             <Route path = '/contact' component = { ContactUs } />
             <Route path = '/about' component = { AboutUs } />
             <Route path = '/product/:productID' component = { Product } />
